@@ -17,6 +17,7 @@ import Review from './pages/resturentdetails/Review';
 import Photos from './pages/resturentdetails/Photos';
 import RestorentHome from './pages/Restorentpage/RestorentHome';
 import Menuhomepage from './pages/Menupages/Menuhomepage';
+import DashbordHome from './Dashbord/Pages/Home/DashbordHome';
 
 
 
@@ -62,6 +63,7 @@ const {auth}= useContext(Mycontext)
     </Route>
 
    
+   <Route path='/dashbord' element={<DashbordHome>  </DashbordHome>}></Route>
 
     <Route path='*' element={<><div>error</div></>}></Route>
     </Routes>
