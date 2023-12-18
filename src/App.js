@@ -18,6 +18,9 @@ import Photos from './pages/resturentdetails/Photos';
 import RestorentHome from './pages/Restorentpage/RestorentHome';
 import Menuhomepage from './pages/Menupages/Menuhomepage';
 import DashbordHome from './Dashbord/Pages/Home/DashbordHome';
+import Restorentdata from './Dashbord/Pages/Restorent/Restorentdata';
+import Dashbordcardhomepage from './Dashbord/Pages/Home/Dashbordcardhomepage';
+import Restorentdetailsform from './Dashbord/Pages/Restorent/Restorentdetailsform';
 
 
 
@@ -63,7 +66,19 @@ const {auth}= useContext(Mycontext)
     </Route>
 
    
-   <Route path='/dashbord' element={<DashbordHome>  </DashbordHome>}></Route>
+    <Route path='/dashbord' element={<DashbordHome>  </DashbordHome>}>
+    <Route index element={<Dashbordcardhomepage></Dashbordcardhomepage>}/>
+    
+    <Route path='restorent' element={<Restorentdata></Restorentdata>}/> 
+    <Route path='newrestorent' element={<Restorentdetailsform></Restorentdetailsform>}/>
+
+
+    </Route>
+
+
+
+
+
 
     <Route path='*' element={<><div>error</div></>}></Route>
     </Routes>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function DashbordHeader() {
   return (
@@ -67,12 +68,41 @@ function DashbordHeader() {
                         </form>
                      </li>
                      <li>
-					 {['Dashboard','Products','Users','Oders','Logout'].map((item)=>
+					 {
+                
+                [
+                  {
+                     id:1,
+                     name:"Dashboard",
+                     path:"",
+                  },
+                  {
+                      id:2,
+                      name:"Restorent",
+                      path:"restorent",
+                  },
+                  {
+                      id:3,
+                      name:"Odder",
+                      path:"odder",
+                  },
+                  {
+                     id:4,
+                     name:"Users",
+                     path:"users",
+                 }, 
+                 {
+                  id:5,
+                  name:"Logout",
+                  path:"logout",
+                  }
+                  
+                ].map((item)=>
 					 
-                        <a  class="text-base text-gray-900 font-semibold cursor-pointer font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+                        <Link  to={item.path} class="text-base text-gray-900 font-semibold cursor-pointer font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
 
-                           <span class="ml-3">{item}</span>
-                        </a>
+                           <span class="ml-3">{item.name}</span>
+                        </Link>
 					 )}
                      </li>
                      
