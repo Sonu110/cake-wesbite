@@ -83,8 +83,8 @@ function DashbordHeader() {
                   },
                   {
                       id:3,
-                      name:"Odder",
-                      path:"odder",
+                      name:"Order",
+                      path:"order",
                   },
                   {
                      id:4,

@@ -7,8 +7,8 @@ function Restorentdata() {
 
    <>
    
-    <Link to={'newrestorent'}>
-<button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+   <Link to={'/dashbord/newrestorent'}>
+<button class="bg-white hover:bg-gray-100 mt-10 text-gray-800 font-semibold py-2 px-4 border border-gray-400  rounded shadow">
   Add new Restorent
 </button>
     </Link>

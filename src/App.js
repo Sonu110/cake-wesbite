@@ -1,5 +1,5 @@
 
-import { Route, Routes } from 'react-router-dom';
+import { Route, RouterProvider, Routes, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import './App.css';
 import  HomeContainer  from './pages/Home/HomeContainer';
 import Header from './components/Header';
@@ -21,20 +21,25 @@ import DashbordHome from './Dashbord/Pages/Home/DashbordHome';
 import Restorentdata from './Dashbord/Pages/Restorent/Restorentdata';
 import Dashbordcardhomepage from './Dashbord/Pages/Home/Dashbordcardhomepage';
 import Restorentdetailsform from './Dashbord/Pages/Restorent/Restorentdetailsform';
+import Oderlist from './Dashbord/Pages/Order/Oderlist';
+import Userlist from './Dashbord/Pages/Users/Userlist';
+import Massage from './Dashbord/components/Massage';
+import Footer from './pages/Footer/Footer';
+import Layout from './pages/Layout/Layout';
 
 
 
 
 
 function App() {
-
+  
 const {auth}= useContext(Mycontext)
-  return (
+  
+  const route  = createBrowserRouter(createRoutesFromElements(
     <>
-      <Header></Header>
-     
-    <Routes>
-    <Route  path='/' element={<HomeContainer></HomeContainer>}>  </Route>
+     <Route path='/' element={<Layout></Layout>}>
+   
+    <Route  path='' element={<HomeContainer></HomeContainer>}>  </Route>
     <Route  path='/restorents' element={<RestorentHome></RestorentHome>}>  </Route>
     <Route path='/menu' element={<Menuhomepage></Menuhomepage>}></Route>
 
@@ -65,26 +70,33 @@ const {auth}= useContext(Mycontext)
 
     </Route>
 
-   
-    <Route path='/dashbord' element={<DashbordHome>  </DashbordHome>}>
-    <Route index element={<Dashbordcardhomepage></Dashbordcardhomepage>}/>
+   </Route>
+    <Route path='/dashbord' element={<Protexted user={auth}></Protexted>}>
+    <Route path='' element={<DashbordHome />}>
+    <Route index element={<Dashbordcardhomepage/>}></Route>
+    <Route path='restorent' element={<Restorentdata />} /> 
+    <Route path='newrestorent' element={<Restorentdetailsform />} />
+    <Route path='order' element={<Oderlist />} />
+    <Route path='users' element={<Userlist />} />
+    <Route path='logout' element={<Massage />} />
+  </Route>
+</Route>
+<Route path='*' element={<><div>error</div></>}></Route>
+
     
-    <Route path='restorent' element={<Restorentdata></Restorentdata>}/> 
-    <Route path='newrestorent' element={<Restorentdetailsform></Restorentdetailsform>}/>
-
-
-    </Route>
-
-
-
-
-
-
-    <Route path='*' element={<><div>error</div></>}></Route>
-    </Routes>
-    
-
     </>
+
+
+
+
+
+  )) 
+
+
+  
+
+  return (
+<RouterProvider router={route}></RouterProvider>
   );
 }
 

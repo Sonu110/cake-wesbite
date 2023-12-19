@@ -7,6 +7,7 @@ function Protexted({ children, user }) {
   if (user) {
       return <Outlet></Outlet>;
   }
+
   return <Navigate to="/login" />;
 }
 
