@@ -5,23 +5,55 @@ import { Navigate } from "react-router-dom";
 export default function Login() {
 
 
- const {setname,setpassword,auth}= useContext(Mycontext);
+ const {auth}= useContext(Mycontext);
  const [email, setEmail] = useState("");
  const [passwords, setPasswords] = useState("");
-
+ const [message, setMessage] = useState('');
  const [redirectToHome, setRedirectToHome] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) =>  {
     e.preventDefault();
 
-    // Set the email and password using the context functions
-    setname(email);
-    setpassword(passwords);
+    
 
-    // Check if email is "sonu" and set the state to trigger navigation
-    if (auth) {
-      setRedirectToHome(true);
+    try {
+      const response = await fetch('http://127.0.0.1:1000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          
+          email,
+          passwords,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (data.status) {
+        setMessage(data.message);
+        setRedirectToHome(true);
+      } else {
+        setMessage(data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
   };
 
   // If redirectToHome is true, perform the navigation
@@ -78,7 +110,7 @@ export default function Login() {
             <input
               id="password"
               name="password"
-              type="password"
+              type="text"
               autoComplete="current-password"
               required
               value={passwords}
@@ -97,7 +129,7 @@ export default function Login() {
           </button>
         </div>
       </form>
-
+<span>{message}</span>
   
             <p className="mt-10 text-center text-sm text-gray-500">
               Don't have account goto{' '}

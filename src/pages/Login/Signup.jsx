@@ -1,5 +1,44 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 export function SignUpThree() {
+
+
+  const [name , setname]=useState("")
+  const [email , setemail]=useState("")
+  const [password , setpassword]=useState("")
+  const [message, setMessage] = useState('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await fetch('http://127.0.0.1:1000/restation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (data.status) {
+        setMessage(data.message);
+      } else {
+        setMessage(data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+
+
+
   return (
     <section>
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
@@ -23,15 +62,16 @@ export function SignUpThree() {
           </h2>
           <p className="mt-2 text-center text-base text-gray-600">
             Already have an account?{' '}
-            <a
-              href="#"
+            <Link
+              
+              to={'/login'}
               title=""
               className="font-medium text-black transition-all duration-200 hover:underline"
             >
               Sign In
-            </a>
+            </Link>
           </p>
-          <form action="#" method="POST" className="mt-8">
+          <form  method="POST" className="mt-8" onSubmit={handleSubmit}>
             <div className="space-y-5">
               <div>
                 <label htmlFor="name" className="text-base font-medium text-gray-900">
@@ -44,6 +84,10 @@ export function SignUpThree() {
                     type="text"
                     placeholder="Full Name"
                     id="name"
+                    name='name'
+                    value={name}
+                    onChange={(e) => setname(e.target.value)}
+
                   ></input>
                 </div>
               </div>
@@ -58,6 +102,10 @@ export function SignUpThree() {
                     type="email"
                     placeholder="Email"
                     id="email"
+                    name='email'
+                    value={email}
+                    onChange={(e) => setemail(e.target.value)}
+
                   ></input>
                 </div>
               </div>
@@ -74,12 +122,17 @@ export function SignUpThree() {
                     type="password"
                     placeholder="Password"
                     id="password"
+                    name='password'
+                    value={password}
+                    onChange={(e) => setpassword(e.target.value)}
+
                   ></input>
                 </div>
               </div>
               <div>
                 <button
-                  type="button"
+                  type="submit"
+
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                 >
                   Create Account 
@@ -87,6 +140,8 @@ export function SignUpThree() {
               </div>
             </div>
           </form>
+
+          <span>{message}</span>
           <div className="mt-3 space-y-3">
             <button
               type="button"

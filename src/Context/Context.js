@@ -4,22 +4,15 @@ import { createContext } from "react";
 const Mycontext = createContext();
 
 const MyProvider = ({ children }) => {
-  const storedName = localStorage.getItem("name") || "";
-  const storedAuth = localStorage.getItem("auth") === "true" || false;
-
-  const [name, setname] = useState(storedName);
+  const [name, setname] = useState("");
   const [pasword, setpassword] = useState("");
-  const [auth, setauth] = useState(storedAuth);
+  const [auth, setauth] = useState(false);
 
-  useEffect(() => {
-    // Check if the name is "sonu" to set auth to true
-    setauth(name === "sonu");
-  }, [name]);
 
-  useEffect(() => {
-    localStorage.setItem("name", name);
-    localStorage.setItem("auth", auth.toString());
-  }, [name, auth]);
+
+
+
+
 
   const [cart, setcart] = useState([]);
 

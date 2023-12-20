@@ -25,7 +25,7 @@ useEffect(() => {
 
 
     <>
-<div className={`flex p-8 gap-5   bg-white w-full ${scrolling ? "fixed top-0 right-0 left-0 z-40 ":""}`}>
+<div className={`flex p-8 gap-5   bg-white w-full ${scrolling ? "fixed  top-[4rem] right-0 left-0 z-50 ":""}`}>
 
 <button class="bg-transparent hover:bg-slate-500  text-gray-800 font-semibold hover:text-white py-1 px-4 border border-gray-300 hover:border-transparent rounded" onClick={()=> setopen(!open)}>
   Filters
