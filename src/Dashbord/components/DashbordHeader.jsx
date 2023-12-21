@@ -93,8 +93,13 @@ function DashbordHeader() {
                  }, 
                  {
                   id:5,
+                  name:"Menu",
+                  path:"menu",
+              }, 
+                 {
+                  id:6,
                   name:"Logout",
-                  path:"logout",
+                  path:"/",
                   }
                   
                 ].map((item)=>

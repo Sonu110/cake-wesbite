@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Dashbordcardhomepage() {
   return (
@@ -15,7 +16,28 @@ function Dashbordcardhomepage() {
   
   {
 
-  ['Restorent','Odder','Users'
+  [
+
+    {
+      id:1,
+      name:"Restorent",
+      path:"/dashbord/restorent",
+      num:"2000"
+    },
+  
+    {
+      id:2,
+      name:"Odder",
+      path:"/dashbord/order",
+      num:"4000"
+    },
+  
+    {
+      id:3,
+      name:"Users",
+      path:"/dashbord/users",
+      num:"2000"
+    }
   
 
 
@@ -25,15 +47,17 @@ function Dashbordcardhomepage() {
   
    <div class=" flex items-center  justify-between p-4  rounded-lg bg-white shadow-indigo-50 shadow-md">
      <div>
-       <h2 class="text-gray-900 text-lg font-bold">Total {item}</h2>
-       <h3 class="mt-2 text-xl font-bold text-yellow-500 text-left">+ 150.000 ₭</h3>
+       <h2 class="text-gray-900 text-lg font-bold">Total {item.name}</h2>
+       <h3 class="mt-2 text-xl font-bold text-yellow-500 text-left">+ {item.num} ₭</h3>
      
+        <Link to={item.path}>
        <button class="text-sm mt-6 px-4 py-2 bg-yellow-400 text-white rounded-lg  tracking-wider hover:bg-yellow-300 outline-none">Click To see</button>
+        </Link>
      </div>
      <div
        class="bg-gradient-to-tr from-yellow-500 to-yellow-400 w-32 h-32  rounded-full shadow-2xl shadow-yellow-400 border-white  border-dashed border-2  flex justify-center items-center ">
        <div>
-         <h1 class="text-white text-2xl">{item}</h1>
+         <h1 class="text-white text-2xl">{item.name}</h1>
        </div>
      </div>
    </div>

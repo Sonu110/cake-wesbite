@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
@@ -25,18 +26,24 @@ function Footer() {
               <div class="w-full lg:w-4/12 px-4 ml-auto">
                 <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2"> Links</span>
                 <ul class="list-unstyled">
-                  <li>
-                    <span class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" >About Us</span>
+
+                      {[
+                        {path:' ', name:"Home"},
+                        {path:'/restorents', name:"Restorents"},
+                        {path:'/menu', name:"Menu"},
+                        
+                        {path:'/login', name:"Contact"},
+                        
+                      ].map((item,i)=>
+                      <li>
+                    < Link key={i} to={`${item.path}`} >
+                      <span class="   hover:text-yellow-700 ">{item.name}</span>
+                      
+                    </Link>
                   </li>
-                  <li>
-                    <span class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" >Blog</span>
-                  </li>
-                  <li>
-                    <span class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" >Github</span>
-                  </li>
-                  <li>
-                    <span class="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" >Free Products</span>
-                  </li>
+                      )}
+                 
+                 
                 </ul>
               </div>
              

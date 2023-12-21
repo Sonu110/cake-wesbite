@@ -6,7 +6,7 @@ const Mycontext = createContext();
 const MyProvider = ({ children }) => {
   const [name, setname] = useState("");
   const [pasword, setpassword] = useState("");
-  const [auth, setauth] = useState(false);
+  const [auth, setauth] = useState(true);
 
 
 

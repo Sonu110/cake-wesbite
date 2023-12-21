@@ -40,7 +40,7 @@ const Header = () => {
             <div class="w-full px-6 flex justify-between lg:w-max md:px-0">
              
                 
-                <span class="text-2xl font-bold text-yellow-900">Cookies<span class="text-yellow-700">Cake</span></span>
+                <span class="text-2xl font-bold text-yellow-500">Apni.<span class="text-yellow-800">Dunkan</span></span>
              
              <button
                 aria-label="hamburger"
@@ -59,7 +59,7 @@ const Header = () => {
               } w-full lg:flex flex-wrap justify-end items-center space-y-6 p-6 rounded-xl bg-slate-900 md:space-y-0 md:p-0 md:flex-nowrap md:bg-transparent lg:w-7/12`}
             
             >
-              <div class={`lg:pr-4  ${scrolling ? "text-black" : "text-white"}`} >
+              <div class={`lg:pr-4  ${scrolling ? "text-black" :  " text-yellow-500"}`} >
                 <ul class="space-y-6  tracking-wide font-medium text-sm md:flex md:space-y-0">
                   <li>
                       {[

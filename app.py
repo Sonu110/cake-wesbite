@@ -46,8 +46,7 @@ def login():
         name = data.get("name")
         email = data.get("email")
         password = data.get("passwords")
-        print(email)
-        print(password)
+       
         database_query = "SELECT * FROM users WHERE name = %s"
         cursor.execute(database_query, (email,))
         user = cursor.fetchone()
@@ -65,6 +64,20 @@ def login():
         message = f"Error: {str(e)}"
         response = {'status': False, 'message': message}
         return jsonify(response)
+
+
+@app.route('/users' ,  methods=['POST', 'GET'])
+def users():
+    database_query = "SELECT * FROM users "
+    cursor.execute(database_query)
+    users = cursor.fetchall()
+
+    print(users)
+    return jsonify(users)
+
+
+
+
 
 
 # Invalid request method

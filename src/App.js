@@ -26,6 +26,7 @@ import Userlist from './Dashbord/Pages/Users/Userlist';
 import Massage from './Dashbord/components/Massage';
 import Footer from './pages/Footer/Footer';
 import Layout from './pages/Layout/Layout';
+import Menulist from './Dashbord/Pages/Menu/Menulist';
 
 
 
@@ -76,7 +77,10 @@ const {auth}= useContext(Mycontext)
     <Route index element={<Dashbordcardhomepage/>}></Route>
     <Route path='restorent' element={<Restorentdata />} /> 
     <Route path='newrestorent' element={<Restorentdetailsform />} />
+
     <Route path='order' element={<Oderlist />} />
+    <Route path='menu' element={<Menulist></Menulist>} />
+    
     <Route path='users' element={<Userlist />} />
     <Route path='logout' element={<Massage />} />
   </Route>
