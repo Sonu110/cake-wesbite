@@ -33,8 +33,7 @@ const HomeContainer = () => {
   }, []);
 
  
-<Loader></Loader>
- 
+
  return (
 <>
     <div className="relative w-full  ">
