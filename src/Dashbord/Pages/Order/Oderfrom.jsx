@@ -3,66 +3,39 @@ import axios from 'axios';
 import Massage from '../../components/Massage';
 function OrderForm() {
 
-    const [form, setForm] = useState({
-        ProductName: '',
-        cetagory: '',
-        Decription: '',
-        price: '',
-        originalPrice: '',
-        discount: '',
-        file: null,
-    });
-
-    const [message,setmessage]=useState('')
-
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setForm({ ...form, [name]: value });
-    };
+    const [name , setname]=useState("")
+    const [email , setemail]=useState("")
+    const [password , setpassword]=useState("")
+    const [message, setMessage] = useState('');
+    const handleSubmit = async (e) => {
+      e.preventDefault();
     
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setForm({ ...form, file });
-    };
-  
-        const handleSubmit = async (e) => {
-            e.preventDefault();
-            console.log(form);
-        
-            const formData = new FormData();
-            formData.append('ProductName', form.ProductName);
-            formData.append('cetagory', form.cetagory);
-            formData.append('Decription', form.Decription);
-            formData.append('price', form.price);
-            formData.append('originalPrice', form.originalPrice);
-            formData.append('discount', form.discount);
-            formData.append('file', form.file);
-        
-            try {
-                const response = await fetch('http://localhost:1000/menu', {
-    method: 'POST',
-    body: formData,
-})
-if (response.ok) {
-    const result = await response.json();
-    console.log(result);
-                // Handle success, e.g., show a success message to the user
-            } else {
-                // Handle errors, e.g., show an error message to the user
-                console.error('Error:', response.statusText);
-                setmessage(response.statusText)
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            setmessage(error)
+      try {
+        const response = await fetch('http://127.0.0.1:1000/restation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
+        });
+    
+        const data = await response.json();
+    
+        if (data.status) {
+          setMessage(data.message);
+        } else {
+          setMessage(data.message);
         }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     };
     
-
-
-console.log("the massgae",message)
-
+  
 
 
     return (
@@ -88,16 +61,24 @@ console.log("the massgae",message)
                                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                     <div class="md:col-span-5">
                                             <label for="ProductName">Product Name</label>
-                                            <input type="text" name="ProductName" id="ProductName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder='Enter the product name' />
+                                            <input type="text" name="ProductName" id="ProductName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder='Enter the product name' value={name}
+                                            onChange={()=> setname(e.target.value)}
+                                            />
+                                            
                                         </div>
                                         <div class="md:col-span-5">
                                             <label for="cetagory">cetagory Name</label>
-                                            <input type="text" name="cetagory" id="ProductName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder='Enter the cetagory name' />
+                                            <input type="text" name="cetagory" id="ProductName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder='Enter the cetagory name'
+                                            value={cetogryname}
+                                            onChange={()=> setcetogryname(e.target.value)} />
                                         </div>
 
                                         <div class="md:col-span-5">
                                             <label for="Decription">Decription</label>
-                                            <textarea name="Decription" id="Decription" class="h-28 border mt-1 rounded px-4 w-full bg-gray-50" />
+                                            <textarea name="Decription" id="Decription" class="h-28 border mt-1 rounded px-4 w-full bg-gray-50" 
+                                            value={Decription}
+                                            onChange={()=> setdecription(e.target.value)}
+                                            />
                                         </div>
 
 
@@ -110,6 +91,8 @@ console.log("the massgae",message)
                                                     id="price"
                                                     placeholder="Price"
                                                     class="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
+                                                    value={price}
+                                                    onChange={()=> setprice(e.target.value)}
 
                                                 />
                                             </div>
@@ -124,6 +107,8 @@ console.log("the massgae",message)
                                                     id="originalPrice"
                                                     placeholder="Original Price"
                                                     class="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
+                                                    value={originalPrice}
+                                                    onChange={()=> setoriginalPrice(e.target.value)}
 
                                                 />
                                             </div>
@@ -132,7 +117,10 @@ console.log("the massgae",message)
 
                                         <div class="md:col-span-1">
                                             <label for="discount">discount</label>
-                                            <input type='number' name="discount" id="discount" class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="discount" />
+                                            <input type='number' name="discount" id="discount" class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="discount" 
+                                             value={discount}
+                                             onChange={()=> setdiscount(e.target.value)}
+                                            />
                                         </div>
 
 

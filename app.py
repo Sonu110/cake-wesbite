@@ -74,7 +74,7 @@ def users():
     users = cursor.fetchall()
 
     
-    return jsonify(users)
+    return jsonify(users) 
 
 
 
