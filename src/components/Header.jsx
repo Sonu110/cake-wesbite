@@ -66,8 +66,7 @@ const Header = () => {
                         {path:'/', name:"Home"},
                         {path:'/restorents', name:"Restorents"},
                         {path:'/menu', name:"Menu"},
-                        {path:'/order', name:"Order"},
-                        
+                          
                         {path:'/login', name:"Contact"},
                         
                       ].map((item,i)=>

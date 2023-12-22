@@ -27,6 +27,7 @@ import Massage from './Dashbord/components/Massage';
 import Footer from './pages/Footer/Footer';
 import Layout from './pages/Layout/Layout';
 import Menulist from './Dashbord/Pages/Menu/Menulist';
+import OrderForm from './Dashbord/Pages/Order/Oderfrom';
 
 
 
@@ -79,6 +80,7 @@ const {auth}= useContext(Mycontext)
     <Route path='newrestorent' element={<Restorentdetailsform />} />
 
     <Route path='order' element={<Oderlist />} />
+    <Route path='neworder' element={<OrderForm />} />
     <Route path='menu' element={<Menulist></Menulist>} />
     
     <Route path='users' element={<Userlist />} />

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Oderlist() {
   return (
@@ -9,6 +10,9 @@ function Oderlist() {
                 <h2 class="text-gray-600 font-semibold">Products Oder</h2>
                 <span class="text-xs">All products item</span>
             </div>
+            <Link to={'/dashbord/neworder'}>
+                <button class="bg-white hover:bg-gray-100  text-gray-800 font-semibold py-2 px-4 border border-gray-400  rounded shadow">Add new Items </button>
+                </Link>
             <div class="flex items-center justify-between">
                 <div class="flex bg-gray-150 items-center p-2 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"

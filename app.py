@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import mysql.connector as connect
 from flask_cors import CORS
+import base64
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -77,6 +78,50 @@ def users():
 
 
 
+
+@app.route('/menu', methods=['POST'])
+def menu():
+    if request.method == 'POST':
+        try:
+            if request.is_json:
+                # JSON data
+                data = request.get_json()
+                name = data.get("ProductName")
+                description = data.get("Decription")
+                price = data.get("price")
+                originalPrice = data.get('originalPrice')
+                discount = data.get('discount')
+                category = data.get('cetagory')
+                # Note: You may need to adjust this part based on how you handle file uploads with JSON data
+                file = None
+            else:
+                # Form data (multipart/form-data)
+                data = request.form
+                name = data.get("ProductName")
+                description = data.get("Decription")
+                price = data.get("price")
+                originalPrice = data.get('originalPrice')
+                discount = data.get('discount')
+                category = data.get('cetagory')
+                file = request.files['file']
+                image_data = base64.b64encode(file.read()).decode('utf-8')
+
+            # Use placeholders in the SQL query
+            query = "INSERT INTO menu (name, category, description, image, price, originalPrice, discount) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            cursor.execute(query, (name, category, description, image_data, price, originalPrice, discount))
+            mydb.commit()
+
+            message = f"Success: Data inserted for Name: {name}, category {category}, price: {price}"
+            response = {'status': 'success', 'message': message}
+        except Exception as e:
+            message = f"Error: {str(e)}"
+            response = {'status': 'error', 'message': message}
+
+        return jsonify(response)
+
+    message = "Error: Method not allowed"
+    response = {'status': False, 'message': message}
+    return jsonify(response)
 
 
 
