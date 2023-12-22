@@ -73,7 +73,7 @@ def users():
     cursor.execute(database_query)
     users = cursor.fetchall()
 
-    print(users)
+    
     return jsonify(users)
 
 
@@ -92,6 +92,7 @@ def menu():
                 originalPrice = data.get('originalPrice')
                 discount = data.get('discount')
                 category = data.get('cetagory')
+                print(data)
                 # Note: You may need to adjust this part based on how you handle file uploads with JSON data
                 file = None
             else:

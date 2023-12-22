@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Massage from '../../components/Massage';
 function OrderForm() {
 
     const [form, setForm] = useState({
@@ -11,6 +12,10 @@ function OrderForm() {
         discount: '',
         file: null,
     });
+
+    const [message,setmessage]=useState('')
+
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
@@ -46,15 +51,17 @@ if (response.ok) {
             } else {
                 // Handle errors, e.g., show an error message to the user
                 console.error('Error:', response.statusText);
+                setmessage(response.statusText)
             }
         } catch (error) {
             console.error('Error:', error);
+            setmessage(error)
         }
     };
     
 
 
-
+console.log("the massgae",message)
 
 
 
@@ -76,6 +83,7 @@ if (response.ok) {
 
 
                                 <div class="lg:col-span-2">
+                                <span>{message}</span>
                                 <form  method='post' onSubmit={handleSubmit}>
                                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                     <div class="md:col-span-5">
