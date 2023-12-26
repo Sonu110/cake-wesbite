@@ -1,32 +1,20 @@
 import React from "react";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const Loader = () => {
   return (
-<>
+    <>
 
-    <div style={{position:"fixed",left:0, right:0, bottom:0, top:0, display:"flex",alignItems:"center",justifyContent:"center"}} className=" bg-slate-600">
-   
-   <div aria-label="Loading..." role="status" class="flex items-center space-x-2">
-    <svg class="h-20 w-20 animate-spin stroke-gray-500" viewBox="0 0 256 256">
-        <line x1="128" y1="32" x2="128" y2="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
-        <line x1="195.9" y1="60.1" x2="173.3" y2="82.7" stroke-linecap="round" stroke-linejoin="round"
-            stroke-width="24"></line>
-        <line x1="224" y1="128" x2="192" y2="128" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
-        </line>
-        <line x1="195.9" y1="195.9" x2="173.3" y2="173.3" stroke-linecap="round" stroke-linejoin="round"
-            stroke-width="24"></line>
-        <line x1="128" y1="224" x2="128" y2="192" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
-        </line>
-        <line x1="60.1" y1="195.9" x2="82.7" y2="173.3" stroke-linecap="round" stroke-linejoin="round"
-            stroke-width="24"></line>
-        <line x1="32" y1="128" x2="64" y2="128" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
-        <line x1="60.1" y1="60.1" x2="82.7" y2="82.7" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
-        </line>
-    </svg>
-    <span class="text-4xl font-medium text-gray-500">Loading...</span>
+<div style={{ gap:"5px", display:"grid" , gridTemplateColumns:"1.5fr 0.5fr 1fr", backgroundColor:"white" , position:"fixed" , top:"0",left:"0",right:"0" , bottom:"0", zIndex:999}}>
+      
+        <Skeleton  style={{height:"100vh"}}/>
+
+        <Skeleton  style={{height:"100vh"}}/>
+
+        <Skeleton  style={{height:"100vh"}}/>
 </div>
-</div>
-</>
+    </>
   );
 };
 

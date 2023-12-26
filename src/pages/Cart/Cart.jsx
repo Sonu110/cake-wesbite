@@ -45,12 +45,12 @@
                             <div className="flex justify-between">
                               <h3 className="text-sm">
                                 <a href={product.href} className="font-semibold text-black">
-                                  {product.name}
+                                  { product[1]}
                                 </a>
                               </h3>
                             </div>
                             <div className="mt-1 flex text-sm">
-                              <p className="text-sm text-gray-500">{product.description}</p>
+                              <p className="text-sm text-gray-500">{product[3]}</p>
                               
                             </div>
                             <div className="mt-1 flex items-center gap-1">

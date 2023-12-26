@@ -3,41 +3,46 @@ import axios from 'axios';
 import Massage from '../../components/Massage';
 function OrderForm() {
 
-    const [name , setname]=useState("")
-    const [email , setemail]=useState("")
-    const [password , setpassword]=useState("")
+    const [ProductName, setProductName] = useState('')
+    const [cetagory, setcatagroy] = useState('')
+    const [Decription, setDescription] = useState('')
+    const [price, setprice] = useState('')
+    const [originalPrice, setoriginalPrice] = useState('')
+    const [discount, setdiscount] = useState('')
+    const [image, setimage] = useState('')
     const [message, setMessage] = useState('');
+    
     const handleSubmit = async (e) => {
-      e.preventDefault();
-    
-      try {
-        const response = await fetch('http://127.0.0.1:1000/restation', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            password,
-          }),
-        });
-    
-        const data = await response.json();
-    
-        if (data.status) {
-          setMessage(data.message);
-        } else {
-          setMessage(data.message);
+        e.preventDefault();
+      
+        const formData = new FormData();
+        formData.append('ProductName', ProductName);
+        formData.append('Decription', Decription);
+        formData.append('price', price);
+        formData.append('originalPrice', originalPrice);
+        formData.append('discount', discount);
+        formData.append('cetagory', cetagory);
+        formData.append('image', image[0]);
+      
+        try {
+          const response = await axios.post('http://127.0.0.1:1000/menu', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+      
+          const data = response.data;
+      
+          if (data.status) {
+            setMessage(data.message);
+          } else {
+            setMessage(data.message);
+          }
+        } catch (error) {
+          console.error('Error:', error);
         }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    
-  
-
-
+      };
+      
     return (
         <div>
 
@@ -46,7 +51,9 @@ function OrderForm() {
                     <div>
                         <h2 class="font-semibold text-xl text-gray-600 mb-4">Menu  create Form</h2>
 
-
+        {
+            message
+        }
                         <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
                             <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                                 <div class="text-gray-600">
@@ -56,28 +63,31 @@ function OrderForm() {
 
 
                                 <div class="lg:col-span-2">
-                                <span>{message}</span>
-                                <form  method='post' onSubmit={handleSubmit}>
+                              
+                                <form  onSubmit={handleSubmit}>
                                     <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                     <div class="md:col-span-5">
                                             <label for="ProductName">Product Name</label>
-                                            <input type="text" name="ProductName" id="ProductName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder='Enter the product name' value={name}
-                                            onChange={()=> setname(e.target.value)}
+                                            <input type="text" name="ProductName" id="ProductName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder='Enter the product name' value={ProductName}
+                                            onChange={(e)=> setProductName(e.target.value)}
                                             />
                                             
                                         </div>
                                         <div class="md:col-span-5">
                                             <label for="cetagory">cetagory Name</label>
-                                            <input type="text" name="cetagory" id="ProductName" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder='Enter the cetagory name'
-                                            value={cetogryname}
-                                            onChange={()=> setcetogryname(e.target.value)} />
+                                            <input type="text" name="cetagory" id="cetagory" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder='Enter the cetagory name'
+                                           value={cetagory}
+                                           onChange={(e)=> setcatagroy(e.target.value)}
+                                           
+                                            />
                                         </div>
 
                                         <div class="md:col-span-5">
                                             <label for="Decription">Decription</label>
                                             <textarea name="Decription" id="Decription" class="h-28 border mt-1 rounded px-4 w-full bg-gray-50" 
-                                            value={Decription}
-                                            onChange={()=> setdecription(e.target.value)}
+                                           value={Decription}
+                                           onChange={(e)=> setDescription(e.target.value)}
+                                           
                                             />
                                         </div>
 
@@ -92,8 +102,8 @@ function OrderForm() {
                                                     placeholder="Price"
                                                     class="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
                                                     value={price}
-                                                    onChange={()=> setprice(e.target.value)}
-
+                                                    onChange={(e)=> setprice(e.target.value)}
+                                                    
                                                 />
                                             </div>
                                         </div>
@@ -108,8 +118,8 @@ function OrderForm() {
                                                     placeholder="Original Price"
                                                     class="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
                                                     value={originalPrice}
-                                                    onChange={()=> setoriginalPrice(e.target.value)}
-
+                                                    onChange={(e)=> setoriginalPrice(e.target.value)}
+                                            
                                                 />
                                             </div>
                                         </div>
@@ -118,8 +128,9 @@ function OrderForm() {
                                         <div class="md:col-span-1">
                                             <label for="discount">discount</label>
                                             <input type='number' name="discount" id="discount" class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="discount" 
-                                             value={discount}
-                                             onChange={()=> setdiscount(e.target.value)}
+                                            value={discount}
+                                            onChange={(e)=> setdiscount(e.target.value)}
+                                            
                                             />
                                         </div>
 
@@ -136,9 +147,15 @@ function OrderForm() {
                                                         <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                     <div class="flex text-sm text-gray-600">
-                                                        <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                            <span class="">Upload a file</span>
-                                                            <input id="file-upload" name="file" type="file" class="sr-only" />
+                                                        <label for="image" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                                            <span class="image">Upload a file</span>
+                                                            <input id="image" name="image" type="file" class="sr-only" 
+                                                            
+                                                            
+                                                            onChange={(e)=> setimage(e.target.files)}
+                                                            accept="image/*"
+                                                            
+                                                            />
                                                         </label>
                                                         <p class="pl-1 text-white">or drag and drop</p>
                                                     </div>

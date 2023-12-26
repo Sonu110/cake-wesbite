@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Menusrollbar from "../../components/Menusrollbar";
 import MenuContainer from "../../components/MenuContainer";
 import Home from '../../img/bugger.jpg'
@@ -7,33 +7,43 @@ import Loader from "../../components/Loader";
 import Typed from "typed.js";
 import { useEffect, useRef } from "react";
 import video1 from '../../img/video/video.mp4';
+import { Mycontext } from "../../Context/Context";
 const HomeContainer = () => {
 
 
-  const el = useRef(null);
+  const {users}=  useContext(Mycontext)
 
-  useEffect(() => {
-    const typed = new Typed(el.current, {
-      strings: ["at your place", "search your Favrat food"], // Strings to display
-      // Speed settings, try diffrent values untill you get good results
-      startDelay: 300,
-      typeSpeed: 100,
-      backSpeed: 100,
-      backDelay: 100,
-      smartBackspace: true,
-      loop: true,
-      showCursor: true,
-    
-    });
+ // Early return if users is empty or null
 
-    // Destropying
-    return () => {
-      typed.destroy();
-    };
-  }, []);
 
- 
+const el = useRef(null);
 
+useEffect(() => {
+
+  if (users.length > 0 && el.current) {
+  const typed = new Typed(el.current, {
+    strings: ["at your place", "search your Favrat food"],
+    startDelay: 300,
+    typeSpeed: 100,
+    backSpeed: 100,
+    backDelay: 100,
+    smartBackspace: true,
+    loop: true,
+    showCursor: true,
+  });
+
+
+  // Destroying
+  return () => {
+    typed.destroy();
+  };
+  }
+}, [,el]); 
+
+// Empty dependency array ensures this effect runs once on mount
+if (users.length === 0 || users === null) {
+  return <Loader />;
+}
  return (
 <>
     <div className="relative w-full  ">
@@ -80,8 +90,8 @@ const HomeContainer = () => {
 
     
 
-<Menusrollbar></Menusrollbar>
-<MenuContainer></MenuContainer>
+<Menusrollbar users={users}></Menusrollbar>
+<MenuContainer  users={users}></MenuContainer>
 <Catelock></Catelock>
     </>
 

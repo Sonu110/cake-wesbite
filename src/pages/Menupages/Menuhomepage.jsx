@@ -1,33 +1,45 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import MenuContainer from '../../components/MenuContainer'
 import video1 from '../../img/video/menu.mp4';
 import Typed from 'typed.js';
+import { Mycontext } from '../../Context/Context';
+import Loader from '../../components/Loader';
 function Menuhomepage() {
 
+  const {users}=  useContext(Mycontext)
 
-  const el = useRef(null);
-
-  useEffect(() => {
-    const typed = new Typed(el.current, {
-      strings: ["at your place", "take your Favrat food"], // Strings to display
-      // Speed settings, try diffrent values untill you get good results
-      startDelay: 300,
-      typeSpeed: 100,
-      backSpeed: 100,
-      backDelay: 100,
-      smartBackspace: true,
-      loop: true,
-      showCursor: true,
-    
-    });
-
-    // Destropying
-    return () => {
-      typed.destroy();
-    };
-  }, []);
-
-
+  // Early return if users is empty or null
+ 
+ 
+ const el = useRef(null);
+ 
+ useEffect(() => {
+ 
+   if (users.length > 0 && el.current) {
+   const typed = new Typed(el.current, {
+     strings: ["at your place", "search your Favrat food"],
+     startDelay: 300,
+     typeSpeed: 100,
+     backSpeed: 100,
+     backDelay: 100,
+     smartBackspace: true,
+     loop: true,
+     showCursor: true,
+   });
+ 
+ 
+   // Destroying
+   return () => {
+     typed.destroy();
+   };
+   }
+ }, [,el]); 
+ 
+ // Empty dependency array ensures this effect runs once on mount
+ if (users.length === 0 || users === null) {
+   return <Loader />;
+ }
+ 
   return (
 <>
 <div className="relative w-full  ">
@@ -73,7 +85,7 @@ function Menuhomepage() {
 
     <div className='p-7'>
 
-    <MenuContainer></MenuContainer>
+    <MenuContainer users={users}></MenuContainer>
 
 
     </div>

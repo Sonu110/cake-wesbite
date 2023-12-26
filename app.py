@@ -42,6 +42,7 @@ def restation():
 
 @app.route('/login', methods=['POST'])
 def login():
+
     try:
         data = request.get_json()  # Get JSON data
         name = data.get("name")
@@ -78,48 +79,54 @@ def users():
 
 
 
-
-@app.route('/menu', methods=['POST'])
+@app.route('/menu', methods=['POST','GET'])
 def menu():
     if request.method == 'POST':
+        image_data = None
         try:
             if request.is_json:
                 # JSON data
                 data = request.get_json()
-                name = data.get("ProductName")
-                description = data.get("Decription")
+                ProductName = data.get("ProductName")
+                Decription = data.get("Decription")
                 price = data.get("price")
                 originalPrice = data.get('originalPrice')
                 discount = data.get('discount')
-                category = data.get('cetagory')
-                print(data)
+                cetagory = data.get('cetagory')
+
                 # Note: You may need to adjust this part based on how you handle file uploads with JSON data
-                file = None
+                image = None
             else:
                 # Form data (multipart/form-data)
                 data = request.form
-                name = data.get("ProductName")
-                description = data.get("Decription")
+                ProductName = data.get("ProductName")
+                Decription = data.get("Decription")
                 price = data.get("price")
                 originalPrice = data.get('originalPrice')
                 discount = data.get('discount')
-                category = data.get('cetagory')
-                file = request.files['file']
-                image_data = base64.b64encode(file.read()).decode('utf-8')
+                cetagory = data.get('cetagory')
+                image = request.files['image']
+                image_data = base64.b64encode(image.read()).decode('utf-8')
 
             # Use placeholders in the SQL query
+            print(image)
             query = "INSERT INTO menu (name, category, description, image, price, originalPrice, discount) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (name, category, description, image_data, price, originalPrice, discount))
+            cursor.execute(query, (ProductName, cetagory,Decription, image_data , price, originalPrice, discount))
             mydb.commit()
-
-            message = f"Success: Data inserted for Name: {name}, category {category}, price: {price}"
+            message = f"Success: Data inserted for Name: {ProductName}, category {cetagory}, price: {price} image {image}"
             response = {'status': 'success', 'message': message}
         except Exception as e:
             message = f"Error: {str(e)}"
             response = {'status': 'error', 'message': message}
 
-        return jsonify(response)
 
+        return jsonify(response)
+    
+    if request.method =='GET':
+        database_query = "SELECT * FROM menu "
+        cursor.execute(database_query)
+        menudata = cursor.fetchall()
+        return jsonify(menudata)
     message = "Error: Method not allowed"
     response = {'status': False, 'message': message}
     return jsonify(response)

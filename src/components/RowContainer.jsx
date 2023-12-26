@@ -10,6 +10,8 @@ const RowContainer = ({ flag, data ,scrollValue, cat ,res}) => {
   useEffect(() => {
     rowContainer.current.scrollLeft += scrollValue;
   }, [scrollValue]);
+
+
   return (
     <div
     ref={rowContainer}
@@ -24,9 +26,9 @@ const RowContainer = ({ flag, data ,scrollValue, cat ,res}) => {
         data.map((item) => (
 
 
-          <Link to={ res ?  `/restorent/${item?.name}` : `/details/${cat}/${item?.id}`   }   >
+          <Link to={ res ?  `/restorent/${item?.name}` : `/details/${cat}/${item?.id || item[0]-1}`   }   >
           <div
-            key={item?.id}
+            key={item[0]}
             className="w-275 h-[175px] min-w-[275px] md:w-300 md:min-w-[300px]  bg-cardOverlay rounded-lg py-2 px-4  my-12 backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-evenly relative"
           >
             <div className="w-full flex items-center justify-between">
@@ -36,7 +38,7 @@ const RowContainer = ({ flag, data ,scrollValue, cat ,res}) => {
                 
               >
                 <img
-                  src={item?.imageSrc}
+                src={`data:image/jpg;base64,${item[4]}`}
                   alt=""
                   className="w-full  h-full object-contain"
                 />
@@ -52,7 +54,7 @@ const RowContainer = ({ flag, data ,scrollValue, cat ,res}) => {
 
             <div className="w-full flex flex-col items-end justify-end -mt-8">
               <p className="text-textColor font-semibold text-base md:text-lg">
-                {item?.name}
+                {item[2]}
               </p>
               <p className="mt-1 text-sm text-gray-500">
                 {item?.decp || item?.address}  

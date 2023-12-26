@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Mycontext } from '../../../Context/Context'
 
 function Oderlist() {
+
+  const {users}=  useContext(Mycontext)
+
+
   return (
    
     <div class="bg-white p-8 rounded-md w-full">
@@ -38,67 +43,73 @@ function Oderlist() {
                                     </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        products
+                                        Cetagory
                                     </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Created at
+                                        Price
                                     </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        QRT
+                                        orignialprice
                                     </th>
                                     <th
                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Status
+                                        Discount
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {
+                                    users.map((item)=>
+                                    
                                 <tr>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 w-10 h-10">
                                                 <img class="w-full h-full rounded-full"
-                                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                                    alt="" />
+                                                    src={`data:image/jpg;base64,${item[4]}`}
+                                                    alt="no image" />
                                             </div>
                                                 <div class="ml-3">
                                                     <p class="text-gray-900 whitespace-no-wrap">
-                                                        Vera Carpenter
+                                                        {item[1]}
                                                     </p>
                                                 </div>
                                             </div>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <p class="text-gray-900 whitespace-no-wrap">Admin</p>
+                                        <p class="text-gray-900 whitespace-no-wrap">   {item[2]}</p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <p class="text-gray-900 whitespace-no-wrap">
-                                            Jan 21, 2020
+                                          {item[5]}
                                         </p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <p class="text-gray-900 whitespace-no-wrap">
-                                            43
+                                            {item[6]}
                                         </p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <span
                                             class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                             <span aria-hidden
-                                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                        <span class="relative">Activo</span>
+                                                class="absolute inset-0  bg-red-700  rounded-full "></span>
+                                        <span class="relative text-white">{item[7]}</span>
                                         </span>
                                     </td>
                                 </tr>
+                                    )
+                                }
                               
                             </tbody>
                         </table>
                         <div
                             class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+                            
                             <span class="text-xs xs:text-sm text-gray-900">
-                                Showing 1 to 4 of 50 Entries
+                                Showing 1 to 4 of {users.length} Entries
                             </span>
                             <div class="inline-flex mt-2 xs:mt-0">
                                 <button

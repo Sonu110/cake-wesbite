@@ -1,49 +1,30 @@
 import React, { useContext, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import  {Menu }from '../../utils/Products'
 import RowContainer from '../../components/RowContainer';
-import { categories } from '../../utils/data';
+
 import Loader from '../../components/Loader';
 import { Mycontext } from '../../Context/Context';
-      
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 
 function Details() {
-  const { cart, setcart } = useContext(Mycontext);
+  const { cart, setcart ,users } = useContext(Mycontext);
+  const { name ,id } = useParams();
+  const [productdata] = useState(users);
+  const data = productdata.find((item) => item[2].toLowerCase().includes(name.toLowerCase()) && item[0] == Number(id)+1);
+  console.log("the data is" ,data);
+  const restData = productdata.filter(
+    (item) => item[2].toLowerCase().includes(name.toLowerCase()) && item !== data
+  );
 
-
-  const { name, id } = useParams();
-  const [productdata] = useState(Menu);
-  const [categoriedata] = useState(categories);
-
-  const data = productdata[name].find((product) => product.id === Number(id));
-  const constdata = productdata[name].filter((id) => id.id !== data.id);
-
-  if (!data) {
-    return <Loader></Loader>;
+   // If data is undefined, render Loader
+   if (data === undefined || data.length === 0) {
+    return <Loader />;
   }
 
-  const isProductInCart = cart.some((item) => item.id === data.id);
 
-  const carts = () => {
-    if (!isProductInCart) {
-      setcart((prevCart) => [...prevCart, data]);
-      toast.success("Success Notification !", {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-
-     
-    }
-  };
-  ;
-  
+const   isProductInCart =false
   
   return (
     <>
-     <ToastContainer />
     
     <section className="overflow-hidden py-5">
       <div className="mx-auto max-w-5xl px-5 py-24   ">
@@ -51,29 +32,28 @@ function Details() {
           <img
             alt="Nike Air Max 21A"
             className="h-64 w-full rounded object-cover sm:h-96 sm:w-1/2"
-            src={data?.imageSrc}
+            src={data?.imageSrc || (data[4] ? `data:image/jpg;base64,${data[4]}` : "")}
+
           />
           <div className="mt-6 w-full sm:mt-0 sm:w-1/2 sm:pl-10">
-            <h2 className="text-sm font-semibold tracking-widest text-gray-500">{name}</h2>
-            <h1 className="my-4 text-3xl font-semibold text-black">{data?.name}</h1>
+            <h2 className="text-sm font-semibold tracking-widest text-gray-500">{name || data?.[1]}</h2>
+            <h1 className="my-4 text-3xl font-semibold text-black">{data?.name || data[2]}</h1>
             
             <p className="leading-relaxed">
-              {data?.description}
+              {data?.description || data[3]}
             </p>
           
 
             <div className="flex items-center justify-between mt-8">
-              <span className="title-font text-xl font-bold text-gray-900">₹{data?.price}</span>
-              <Link to={'/cart'}>
+              <span className="title-font text-xl font-bold text-gray-900">₹{data?.price || data[5]}</span>
+            
               <button
                 type="button"
                 className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-
-                onClick={carts }
+                onClick={setcart(data)}
               >
               {isProductInCart ? 'Cart is added' : 'Add to Cart'}
               </button>
-              </Link>
             </div>
           </div>
         </div>
@@ -84,11 +64,14 @@ function Details() {
         Our fresh & healthy Products related
       </p>
 
-      {categoriedata
-  .filter(category => category.urlParamName === name) // Filter to include only the selected category
-  .map(selectedCategory => (
-    <RowContainer key={selectedCategory.urlParamName} data={constdata} flag={true} cat={selectedCategory.urlParamName} />
-))}
+      {
+        restData.length ===0 || restData === undefined || restData === null ?
+        <RowContainer data={restData} flag={true}  cat={restData[2]} />
+        :
+        <RowContainer data={restData} flag={true}  cat={restData[0][2]} />
+        
+      }
+
 
 
     </>

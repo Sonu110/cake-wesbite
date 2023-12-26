@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { motion } from "framer-motion";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import RowContainer from "./RowContainer";
-import { Menu } from '../utils/Products';
 
-import { restorent } from '../utils/data';
+function Menusrollbar({users}) {
 
-function Menusrollbar() {
+  
 
-    
+
+
     const [scrollValue, setScrollValue] = useState(0);
   
 function pluse() 
@@ -70,7 +70,7 @@ function minus()
       
     
     <RowContainer
-data={restorent}
+data={users}
 flag={true}
 scrollValue={scrollValue}
 res={true}

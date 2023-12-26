@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoFastFood } from "react-icons/io5";
-import { categories } from "../utils/data";
 import { motion } from "framer-motion";
 import RowContainer from "./RowContainer";
-import { Menu } from "../utils/Products";
 
-const MenuContainer = () => {
+
+const MenuContainer = ({users}) => {
+  
   const [filter, setFilter] = useState("icecreams");
-
+  const uniqueSecondElements = [...new Set(users.map(item => item[2]))];
+  const userWithPizza = users.filter(user => user[2].toLowerCase().includes(filter));
 
   return (
     <section className="w-full  p-12" id="menu">
@@ -17,26 +18,26 @@ const MenuContainer = () => {
         </p>
 
         <div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none" id="scrolling">
-          {categories &&
-            categories.map((category) => (
+          {
+            uniqueSecondElements.map((category) => (
               <motion.div
                 whileTap={{ scale: 0.75 }}
                 key={category.id}
                 className={`group ${
-                  filter === category.urlParamName ? " bg-cartNumBg" : "bg-card"
+                  filter ===  category ? " bg-cartNumBg" : "bg-card"
                 } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg `}
-                onClick={() => setFilter(category.urlParamName)}
+                onClick={() => setFilter(category)}
               >
                 <div
                   className={`w-10 h-10 rounded-full shadow-lg ${
-                    filter === category.urlParamName
+                    filter ===   category
                       ? "bg-white"
                       : "bg-cartNumBg"
                   } group-hover:bg-white flex items-center justify-center`}
                 >
                   <IoFastFood
                     className={`${
-                      filter === category.urlParamName
+                      filter === category
                         ? "text-textColor"
                         : "text-white"
                     } group-hover:text-textColor text-lg`}
@@ -44,20 +45,20 @@ const MenuContainer = () => {
                 </div>
                 <p
                   className={`text-sm ${
-                    filter === category.urlParamName
+                    filter ===  category
                       ? "text-white"
                       : "text-textColor"
                   } group-hover:text-white`}
                 >
-                  {category.name}
+                  { category}
                 </p>
               </motion.div>
             ))}
         </div>
 
         <div className="w-full">
-        {Menu[filter] ? (
-            <RowContainer flag={false} data={Menu[filter]} cat={filter}/>
+        {userWithPizza ? (
+            <RowContainer flag={false} data={userWithPizza} cat={filter}/>
           ) : (
             <p>No items found for the selected category.</p>
           )}

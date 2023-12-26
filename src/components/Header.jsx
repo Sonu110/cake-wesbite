@@ -100,7 +100,7 @@ const Header = () => {
               </div>
               <Link to={'/cart'}>
              <div className="flex justify-center items-center "> 
-            <FaCartShopping  className=" text-[2.5rem] ml-5 " style={{ color: scrolling ? "black" : "#fff",}}/>
+            <FaCartShopping  className=" text-[2.5rem] ml-5 " style={{ color: scrolling ? "black" : "skyblue",}}/>
             <span className="-mt-7 rounded-full transition  bg-black w-6 flex  text-white justify-center items-center">{cart.length}</span>
             </div>
             </Link>

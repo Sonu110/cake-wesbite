@@ -11,10 +11,26 @@ const MyProvider = ({ children }) => {
 
 
 
+  const [users, setUsers] = useState([]);
+
+  
+  useEffect(() => {
+    // Fetch data from Flask API
+    fetch('http://127.0.0.1:1000/menu')
+      .then(response => response.json())
+      .then(data => {
+        setUsers(data);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, [])
+  
+  
+  
 
 
 
   const [cart, setcart] = useState([]);
+  console.log("this is cartt",cart);
 
   const remove = (productId) => {
     const updatedCart = cart.filter((item) => item.id !== productId);
@@ -23,7 +39,7 @@ const MyProvider = ({ children }) => {
 
   return (
     <Mycontext.Provider
-      value={{ cart, setcart, remove, name, setname, pasword, setpassword, auth }}
+      value={{ cart, setcart, remove, name, setname, pasword, setpassword, auth ,users }}
     >
       {children}
     </Mycontext.Provider>
