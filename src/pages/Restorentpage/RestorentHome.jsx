@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Typed from "typed.js";
 import { useEffect, useRef } from "react";
 
 import video1 from '../../img/video/video2.mp4';
 import Menus from '../resturentdetails/Menus';
 import Restorentheader from './Restorentheader';
+import { Mycontext } from '../../Context/Context';
 function RestorentHome() {
+ const {restorent}= useContext(Mycontext)
 
+ console.log("the data of restorent", restorent);
     const el = useRef(null);
 
     useEffect(() => {
@@ -85,7 +88,7 @@ function RestorentHome() {
 </div>
 
 <div className='p-10'>
-<Menus></Menus>
+<Menus data={restorent}></Menus>
 
 </div>
 </>

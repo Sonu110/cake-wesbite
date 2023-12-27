@@ -10,10 +10,24 @@ function Details() {
   const { name ,id } = useParams();
   const [productdata] = useState(users);
   const data = productdata.find((item) => item[2].toLowerCase().includes(name.toLowerCase()) && item[0] == Number(id)+1);
-  console.log("the data is" ,data);
   const restData = productdata.filter(
     (item) => item[2].toLowerCase().includes(name.toLowerCase()) && item !== data
   );
+  const   isProductInCart = cart.find((item) => item[1].toLowerCase()===data[1].toLowerCase())
+  console.log("the cartt is ture nad flase",isProductInCart);
+    
+
+  const addcart =()=>{
+
+    if(!isProductInCart)
+    {
+      setcart([...cart,data])
+    }
+
+
+  }
+
+
 
    // If data is undefined, render Loader
    if (data === undefined || data.length === 0) {
@@ -21,8 +35,6 @@ function Details() {
   }
 
 
-const   isProductInCart =false
-  
   return (
     <>
     
@@ -50,7 +62,7 @@ const   isProductInCart =false
               <button
                 type="button"
                 className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                onClick={setcart(data)}
+                onClick={addcart}
               >
               {isProductInCart ? 'Cart is added' : 'Add to Cart'}
               </button>

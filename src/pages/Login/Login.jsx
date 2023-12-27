@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 export default function Login() {
 
 
- const {auth}= useContext(Mycontext);
+ const {auth,setauth }= useContext(Mycontext);
  const [email, setEmail] = useState("");
  const [passwords, setPasswords] = useState("");
  const [message, setMessage] = useState('');
@@ -34,6 +34,8 @@ export default function Login() {
       if (data.status) {
         setMessage(data.message);
         setRedirectToHome(true);
+        setauth(!auth)
+        
       } else {
         setMessage(data.message);
       }

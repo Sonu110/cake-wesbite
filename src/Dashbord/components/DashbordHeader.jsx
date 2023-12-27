@@ -82,20 +82,20 @@ function DashbordHeader() {
                       path:"restorent",
                   },
                   {
-                      id:3,
-                      name:"Order",
-                      path:"order",
-                  },
+                     id:3,
+                     name:"Menu",
+                     path:"menu",
+                  }, 
                   {
                      id:4,
                      name:"Users",
                      path:"users",
-                 }, 
-                 {
-                  id:5,
-                  name:"Menu",
-                  path:"menu",
-              }, 
+                  }, 
+                  {
+                      id:5,
+                      name:"Order",
+                      path:"order",
+                  },
                  {
                   id:6,
                   name:"Logout",

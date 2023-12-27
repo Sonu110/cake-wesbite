@@ -33,7 +33,7 @@ function Menuhomepage() {
      typed.destroy();
    };
    }
- }, [,el]); 
+ }, [users]); 
  
  // Empty dependency array ensures this effect runs once on mount
  if (users.length === 0 || users === null) {

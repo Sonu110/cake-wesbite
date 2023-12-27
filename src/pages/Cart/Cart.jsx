@@ -8,7 +8,8 @@
 
 
     const {cart,remove} = useContext(Mycontext) 
-    const totalPrice = cart.reduce((total, product) => total + product.price, 0);
+    const totalPrice = cart.reduce((total, product) => total +  product[5],0);
+    console.log("the toal prese", totalPrice);
     const discountAmount = (0.75 * totalPrice).toFixed(2); // Apply a 75% discount
 
 
@@ -33,7 +34,8 @@
                     <li className="flex py-6 sm:py-6 ">
                       <div className="flex-shrink-0">
                         <img
-                          src={product.imageSrc}
+                        src={product?.imageSrc || (product[4] ? `data:image/jpg;base64,${product[4]}` : "")}
+
                           alt={product.name}
                           className="sm:h-38 sm:w-38 h-24 w-24 rounded-md object-contain object-center"
                         />
@@ -50,15 +52,15 @@
                               </h3>
                             </div>
                             <div className="mt-1 flex text-sm">
-                              <p className="text-sm text-gray-500">{product[3]}</p>
+                              <p className="text-sm text-gray-500">{ product[3]}</p>
                               
                             </div>
                             <div className="mt-1 flex items-center gap-1">
                               <p className="text-xs font-medium text-gray-500 line-through">
-                                {product.originalPrice}
+                              ₹{product.originalPrice || product[6]}
                               </p>
                               <p className="text-sm font-medium text-gray-900 ">
-                              ₹{product.price}
+                              ₹{product.price || product[5]}
                               </p>
                               &nbsp;&nbsp;
                               <p className="text-sm font-medium text-green-500">{product.discount}</p>
@@ -84,7 +86,7 @@
                       <div className="ml-6 flex text-sm">
                         <button type="button" className="flex items-center space-x-1 px-2 py-1 pl-0">
                         
-                          <span className="text-xs font-medium text-red-500" onClick={()=> remove(product.id)}>Remove</span>
+                          <span className="text-xs font-medium text-red-500" onClick={()=> remove(product[0])}>Remove</span>
                         </button>
                       </div>
                     </div>

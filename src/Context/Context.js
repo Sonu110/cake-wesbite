@@ -7,10 +7,7 @@ const MyProvider = ({ children }) => {
   const [name, setname] = useState("");
   const [pasword, setpassword] = useState("");
   const [auth, setauth] = useState(true);
-
-
-
-
+  const [restorent ,setrestorent ] =([])
   const [users, setUsers] = useState([]);
 
   
@@ -24,22 +21,46 @@ const MyProvider = ({ children }) => {
       .catch(error => console.error('Error fetching data:', error));
   }, [])
   
+  useEffect(() => {
+    // Fetch data from Flask API
+    fetch('http://127.0.0.1:1000/restorent')
+      .then(response => response.json())
+      .then(data => {
+        setrestorent(data);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, [])
   
   
+  
+
+const cartdata = JSON.parse (localStorage.getItem("cart"))||[]
+const cartprotextion = localStorage.getItem('users')
+
+console.log("the cart protextions",cartprotextion);
+  const [cart, setcart] = useState(cartdata);
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify([...cart]));
+    localStorage.setItem('users', auth);
+  }, [cart,auth]);
+
+  
 
 
 
-  const [cart, setcart] = useState([]);
-  console.log("this is cartt",cart);
+
+
 
   const remove = (productId) => {
-    const updatedCart = cart.filter((item) => item.id !== productId);
+    const updatedCart = cart.filter((item) => item[0] !== productId);
+    console.log("remove cart name " , updatedCart);
     setcart(updatedCart);
   };
 
   return (
     <Mycontext.Provider
-      value={{ cart, setcart, remove, name, setname, pasword, setpassword, auth ,users }}
+      value={{ cart, setcart, remove, name, setname, pasword, setpassword, auth ,users ,setauth,restorent}}
     >
       {children}
     </Mycontext.Provider>

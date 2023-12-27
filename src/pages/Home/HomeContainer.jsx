@@ -6,7 +6,7 @@ import Catelock from "../../components/Catelock";
 import Loader from "../../components/Loader";
 import Typed from "typed.js";
 import { useEffect, useRef } from "react";
-import video1 from '../../img/video/video.mp4';
+import video1 from '../../img/video/video1.mp4';
 import { Mycontext } from "../../Context/Context";
 const HomeContainer = () => {
 
@@ -38,7 +38,7 @@ useEffect(() => {
     typed.destroy();
   };
   }
-}, [,el]); 
+}, [users]); 
 
 // Empty dependency array ensures this effect runs once on mount
 if (users.length === 0 || users === null) {

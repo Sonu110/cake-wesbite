@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 import mysql.connector as connect
 from flask_cors import CORS
 import base64
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -87,6 +89,7 @@ def menu():
             if request.is_json:
                 # JSON data
                 data = request.get_json()
+                
                 ProductName = data.get("ProductName")
                 Decription = data.get("Decription")
                 price = data.get("price")
@@ -139,6 +142,64 @@ def invalid_login():
     message = "Error: Method not allowed"
     response = {'status': False, 'message': message}
     return jsonify(response)
+
+
+
+
+
+@app.route('/restorent', methods=['POST','GET'])
+def restorent():
+    try:
+        if request.is_json:
+            # JSON data
+            data = request.get_json()
+            full_name = data.get("full_name")
+            email = data.get("email")
+            address = data.get("address")
+            description = data.get('description')
+            image = request.files['file']
+            subimage = request.files.getlist('files[]')
+        else:
+            # Form data (multipart/form-data)
+            data = request.form
+            full_name = data.get("full_name")
+            email = data.get("email")
+            address = data.get("address")
+            city = data.get('city')
+            description = data.get('description')
+            image = request.files['file']
+            imagename = os.path.join('Reastorentimg/Main', secure_filename(image.filename))
+            image.save(imagename)
+            file_paths = []
+            subimage = request.files.getlist('files[]')
+            for file in subimage:
+                filename = os.path.join('Reastorentimg/Subimage', secure_filename(file.filename))
+                file.save(filename)
+                file_paths.append(filename)
+
+        # Convert the list to a string using a delimiter (e.g., ';')
+        file_paths_str = ';'.join(file_paths)
+
+        query = "INSERT INTO restaurants (name, email, Address, city, Description, image, subimage) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        cursor.execute(query, (full_name, email, address, city, description, imagename, file_paths_str))
+        mydb.commit()
+        message = f"Success: Data inserted for Name: {full_name}, address {address}, email {email}"
+        response = {'status': 'success', 'message': message}
+        print(query, (full_name, email, address, city, description, imagename, file_paths_str))
+    except Exception as e:
+        message = f"Error: {str(e)}"
+        response = {'status': 'error', 'message': message}
+
+    if request.method =='GET':
+        database_query = "SELECT * FROM restaurants "
+        cursor.execute(database_query)
+        menudata = cursor.fetchall()
+        return jsonify(menudata)
+    
+
+    return jsonify(response)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=1000)

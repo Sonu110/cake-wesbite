@@ -1,5 +1,5 @@
 import React from 'react'
-function Menus({img, head, paragraph , rate , start }) {
+function Menus({data}) {
   return (
 
 
@@ -7,7 +7,7 @@ function Menus({img, head, paragraph , rate , start }) {
     
 
 {
-  [1,2,3,4,5].map((value , index)=>
+  data.map((value , index)=>
   
 
 <div class="flex flex-col justify-center mt-4" key={index}>

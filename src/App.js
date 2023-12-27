@@ -21,13 +21,12 @@ import DashbordHome from './Dashbord/Pages/Home/DashbordHome';
 import Restorentdata from './Dashbord/Pages/Restorent/Restorentdata';
 import Dashbordcardhomepage from './Dashbord/Pages/Home/Dashbordcardhomepage';
 import Restorentdetailsform from './Dashbord/Pages/Restorent/Restorentdetailsform';
-import Oderlist from './Dashbord/Pages/Order/Oderlist';
+import Menulist from './Dashbord/Pages/Menus/Menulist';
 import Userlist from './Dashbord/Pages/Users/Userlist';
 import Massage from './Dashbord/components/Massage';
-import Footer from './pages/Footer/Footer';
 import Layout from './pages/Layout/Layout';
-import Menulist from './Dashbord/Pages/Menu/Menulist';
-import OrderForm from './Dashbord/Pages/Order/Oderfrom';
+import Orderslists from './Dashbord/Pages/Orders/Orderslist';
+import OrderForm from './Dashbord/Pages/Menus/Menufrom';
 
 
 
@@ -79,9 +78,9 @@ const {auth}= useContext(Mycontext)
     <Route path='restorent' element={<Restorentdata />} /> 
     <Route path='newrestorent' element={<Restorentdetailsform />} />
 
-    <Route path='order' element={<Oderlist />} />
-    <Route path='neworder' element={<OrderForm />} />
-    <Route path='menu' element={<Menulist></Menulist>} />
+    <Route path='menu' element={<Menulist />} />
+    <Route path='newmenu' element={<OrderForm />} />
+    <Route path='order' element={<Orderslists></Orderslists>} />
     
     <Route path='users' element={<Userlist />} />
     <Route path='logout' element={<Massage />} />
