@@ -7,9 +7,12 @@ import Menus from '../resturentdetails/Menus';
 import Restorentheader from './Restorentheader';
 import { Mycontext } from '../../Context/Context';
 function RestorentHome() {
- const {restorent}= useContext(Mycontext)
 
- console.log("the data of restorent", restorent);
+  const {restorents} = useContext(Mycontext)
+
+
+
+
     const el = useRef(null);
 
     useEffect(() => {
@@ -88,7 +91,7 @@ function RestorentHome() {
 </div>
 
 <div className='p-10'>
-<Menus data={restorent}></Menus>
+<Menus ></Menus>
 
 </div>
 </>

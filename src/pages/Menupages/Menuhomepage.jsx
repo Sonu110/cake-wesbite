@@ -36,9 +36,9 @@ function Menuhomepage() {
  }, [users]); 
  
  // Empty dependency array ensures this effect runs once on mount
- if (users.length === 0 || users === null) {
-   return <Loader />;
- }
+//  if (users.length === 0 || users === null) {
+//    return <Loader />;
+//  }
  
   return (
 <>

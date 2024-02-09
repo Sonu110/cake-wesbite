@@ -29,7 +29,7 @@ def restation():
             password = data.get("password")
             
             cursor.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (name, email, password))
-            mydb.commit()
+            
 
             message = f"Success: Data inserted for Name: {name}, email {email} Password: {password}"
             response = {'status': 'success', 'message': message}
@@ -78,6 +78,28 @@ def users():
 
     
     return jsonify(users) 
+
+
+
+@app.route('/restorentdata', methods=['GET'])
+def get_restorent():
+    try:
+        database_query = "SELECT * FROM restaurants"
+            
+        cursor.execute(database_query)
+        
+        restorentdata = cursor.fetchall()
+        response = {'status': 'success', 'message': 'Data retrieved successfully.'}
+        return jsonify(restorentdata)
+    
+    except Exception as e:
+        message = f"Error: {str(e)}"
+        response = {'status': 'error', 'message': message}
+
+    return jsonify(response)
+
+
+ 
 
 
 
@@ -159,6 +181,7 @@ def restorent():
             description = data.get('description')
             image = request.files['file']
             subimage = request.files.getlist('files[]')
+        
         else:
             # Form data (multipart/form-data)
             data = request.form
@@ -190,11 +213,6 @@ def restorent():
         message = f"Error: {str(e)}"
         response = {'status': 'error', 'message': message}
 
-    if request.method =='GET':
-        database_query = "SELECT * FROM restaurants "
-        cursor.execute(database_query)
-        menudata = cursor.fetchall()
-        return jsonify(menudata)
     
 
     return jsonify(response)

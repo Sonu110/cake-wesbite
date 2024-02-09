@@ -64,7 +64,7 @@ const Header = () => {
                   <li>
                       {[
                         {path:'/', name:"Home"},
-                        {path:'/restorents', name:"Restorents"},
+                        // {path:'/restorents', name:"Restorents"},
                         {path:'/menu', name:"Menu"},
                           
                         {path:'/login', name:"Contact"},

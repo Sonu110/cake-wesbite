@@ -7,7 +7,7 @@ function Menus({data}) {
     
 
 {
-  data.map((value , index)=>
+  [1,2,3,4,5].map((value , index)=>
   
 
 <div class="flex flex-col justify-center mt-4" key={index}>

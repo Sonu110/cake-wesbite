@@ -34,14 +34,14 @@ import OrderForm from './Dashbord/Pages/Menus/Menufrom';
 
 function App() {
   
-const {auth}= useContext(Mycontext)
+const {auth,restorentdata}= useContext(Mycontext)
   
   const route  = createBrowserRouter(createRoutesFromElements(
     <>
      <Route path='/' element={<Layout></Layout>}>
    
     <Route  path='' element={<HomeContainer></HomeContainer>}>  </Route>
-    <Route  path='/restorents' element={<RestorentHome></RestorentHome>}>  </Route>
+    {/* <Route  path='/restorents' element={<RestorentHome></RestorentHome>}>  </Route> */}
     <Route path='/menu' element={<Menuhomepage></Menuhomepage>}></Route>
 
 
@@ -53,7 +53,7 @@ const {auth}= useContext(Mycontext)
         </Route>
     <Route path='/signup' element={<SignUpThree></SignUpThree>}></Route>
     <Route path='/login' element ={<Login></Login>}></Route>
-    <Route path='/restorent/:name' element={<Restorent></Restorent>}>
+    {/* <Route path='/restorent/:name' element={<Restorent></Restorent>}>
 
    < Route index element={<Menus />} />
     <Route path="oder" element={<Menus />} />
@@ -69,7 +69,7 @@ const {auth}= useContext(Mycontext)
     <Route path='overview' element={<>overview</>}></Route>
 
 
-    </Route>
+    </Route> */}
 
    </Route>
     <Route path='/dashbord' element={<Protexted user={auth}></Protexted>}>
@@ -86,6 +86,10 @@ const {auth}= useContext(Mycontext)
     <Route path='logout' element={<Massage />} />
   </Route>
 </Route>
+
+
+
+
 <Route path='*' element={<><div>error</div></>}></Route>
 
     
