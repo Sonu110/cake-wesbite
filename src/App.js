@@ -72,7 +72,7 @@ const {auth,restorentdata}= useContext(Mycontext)
     </Route> */}
 
    </Route>
-    <Route path='/dashbord' element={<Protexted user={auth}></Protexted>}>
+    <Route path='/dashbord ' element={<Protexted user={auth}></Protexted>}>
     <Route path='' element={<DashbordHome />}>
     <Route index element={<Dashbordcardhomepage/>}></Route>
     <Route path='restorent' element={<Restorentdata />} /> 
